@@ -6,8 +6,35 @@ import Container from 'react-bootstrap/Container';
 import ListGroup from 'react-bootstrap/ListGroup';
 
 
+import firebase from 'firebase/app';
+import 'firebase/database';
+
 
 function Products() {
+
+
+    const adicionarProduto = () => {
+        const novoProduto = {
+          nome: "Nome do Produto",
+          descricao: "Descrição do Produto",
+          foto: "URL da Foto do Produto",
+          precoAntigo: 100.00,
+          precoNovo: 80.00,
+          link: "URL do Link do Produto"
+        };
+
+        const produtosRef = firebase.database().ref('produtos');
+
+        produtosRef.push(novoProduto)
+      .then(() => {
+        console.log("Produto adicionado com sucesso!");
+      })
+      .catch((error) => {
+        console.error("Erro ao adicionar o produto:", error);
+      });
+    };
+
+
   
     let products = [{
         Name : "Iphone X",
@@ -52,8 +79,9 @@ function Products() {
   
     return (
     <Container>
+        <button onClick={adicionarProduto}>Adicionar Produto</button>
         <br></br>
-        <Row xs={2} md={4} className="g-4">
+        <Row xs={1} sm={2} md={3} lg={4} className="g-4">
         {products.map((product) => (
             <Col key={product.Name}>
             <Card>
@@ -69,6 +97,7 @@ function Products() {
                     <ListGroup.Item className="text-center"><span className="text-decoration-line-through fs-6">{product.oldPrice}€</span> | <span className="text-danger fs-3">{product.newPrice}€</span></ListGroup.Item>
                     <br></br>
                     <Button variant="warning">Ver</Button>
+                    
                 </ListGroup>
                 
                 </Card.Body>
