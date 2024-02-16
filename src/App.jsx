@@ -5,16 +5,25 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css'
 import Navbar from './Components/Navbar';
 import Products from './Components/Products';
+import Login from './Components/Login';
+import Admin from './Components/Admin';
 
 
 function App() {
 
   return (
     <>
-    <Navbar></Navbar>
+    
     <Router>
       <Routes>
-        <Route path='/' element = {<Products />} />
+        <Route path='/' element = {
+          <>
+            <Navbar />
+            <Products />
+          </>
+        } />
+        <Route path='login' element = {<Login />} />
+        <Route path='admin' element = {<Admin />} />
       </Routes>
     </Router>
 
